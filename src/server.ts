@@ -23,9 +23,10 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
     if (!image_url){
       res.send("you must provide image url")
     }
-    const image_path: string = await filterImageFromURL(image_url);
+    await filterImageFromURL(image_url).then( function (image_path){
     res.sendFile(image_path);
     res.on('finish', () => deleteLocalFiles([image_path]));
+    });
 
 
   } );
